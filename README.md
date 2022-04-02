@@ -1,27 +1,41 @@
-# Helloworld
+# Get docker-compose
+ - ``curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose``
+ - ``chmod +x /usr/local/bin/docker-compose``
+# Wichtige Dateien
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+- Dockerfile
+  - ``COPY --from=build-step /app/dist/helloworld /usr/share/nginx/html``
 
-## Development server
+- docker-compose.yml
+  - ``container_name: helloworld``
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Version: Node, NPM & Nginx Web-Server
+- Dockerfile
+  - ``FROM node:latest as build-step``
+  - ``RUN npm install -g npm@8.6.0``
+  - ``FROM nginx:1.21.6``
 
-## Build
+# Commands
+ - clone repository
+   - ``git clone https://github.com/Izzy3110/docker-angularjs``
+ - change directory
+   - ``cd docker-angularjs``
+ - build
+   - ``docker-compose build``
+  
+ - run
+   - ``docker run -p 4200:80 helloworld_angular-service``
+  
+ - list available images
+   - ``docker images``
+ 
+ - list running containers
+   - ``docker container ls --all``
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+ - netstat - show listening ports
+   - ``netstat -anpt``
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Author: Sascha Frank @ TabTeam
